@@ -22,7 +22,7 @@ export class OwnerService {
       const hash = await argon2.hash(createdOwner.password);
       createdOwner.password = hash;
       createdOwner.save();
-      return createdOwner;
+      return newOwner;
     } catch (err) {
       throw new InternalServerErrorException(err);
     }

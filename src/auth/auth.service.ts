@@ -14,11 +14,12 @@ import { LoginOwnerDTO } from '../owner/dto/loginOwner.dto';
 export class AuthService {
   constructor(private readonly ownerService: OwnerService) {}
 
-  async validate(
+  async validateUser(
     email: LoginOwnerDTO['email'],
     password: LoginOwnerDTO['password'],
   ) {
     const validUser = await this.ownerService.findOne(email);
+    console.log(validUser);
     try {
       const validPass = await argon2.verify(validUser.password, password);
       if (validPass) {

@@ -38,6 +38,6 @@ export class OwnerController {
 
   @Post('/login')
   async login(@Body() body: LoginOwnerDTO): Promise<any> {
-    return await this.authService.validate(body.email, body.password);
+    return await this.authService.validateUser(body.email, body.password);
   }
 }
