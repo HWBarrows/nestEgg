@@ -4,10 +4,11 @@ import { OwnerService } from './owner.service';
 import { AuthService } from '../auth/auth.service';
 import { Owner, OwnerSchema } from './owner';
 import { OwnerController } from './owner.controller';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   controllers: [OwnerController],
-  providers: [OwnerService, AuthService],
+  providers: [OwnerService, AuthService, JwtService],
   imports: [
     MongooseModule.forFeature([{ name: Owner.name, schema: OwnerSchema }]),
   ],

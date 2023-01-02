@@ -6,7 +6,10 @@ export type OwnerDocument = HydratedDocument<Owner>;
 @Schema()
 export class Owner {
   @Prop({ required: true })
-  name: string;
+  firstName: string;
+
+  @Prop({ required: true })
+  lastName: string;
 
   @Prop({ required: true })
   email: string;
@@ -19,6 +22,9 @@ export class Owner {
 
   @Prop({ required: true })
   phoneNumber: string;
+
+  @Prop({ required: true })
+  authToken: string;
 }
 
 export const OwnerSchema = SchemaFactory.createForClass(Owner);

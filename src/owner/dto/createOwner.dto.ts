@@ -2,7 +2,13 @@ import { IsString, IsEmail, MinLength } from 'class-validator';
 
 export class CreateOwnerDTO {
   @IsString()
-  name: string;
+  firstName: string;
+
+  @IsString()
+  lastName: string;
+
+  @IsString()
+  authToken: string;
 
   @IsEmail()
   email: string;

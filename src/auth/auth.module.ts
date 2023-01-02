@@ -1,15 +1,27 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AuthService } from './auth.service';
 import { OwnerService } from '../owner/owner.service';
-import { Owner, OwnerSchema } from '../owner/owner';
+import { OwnerModule } from '../owner/owner.module';
 import { LocalStrategy } from './local.strategy';
-
+import { JwtStrategy } from './jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-  providers: [AuthService, OwnerService, LocalStrategy],
+  providers: [AuthService, OwnerService, LocalStrategy, JwtStrategy],
   imports: [
-    MongooseModule.forFeature([{ name: Owner.name, schema: OwnerSchema }]),
+    PassportModule,
+    OwnerModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('auth.key'),
+        signOptions: { expiresIn: '14d' },
+      }),
+      inject: [ConfigService],
+    }),
   ],
-  exports: [MongooseModule],
+  exports: [AuthService, JwtModule, PassportModule],
 })
 export class AuthModule {}

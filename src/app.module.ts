@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { connect } from './db/connect';
+import { JwtService } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OwnerService } from './owner/owner.service';
@@ -9,10 +9,27 @@ import { SpendService } from './spend/spend.service';
 import { SpendModule } from './spend/spend.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import config from './db/config';
 
 @Module({
   controllers: [AppController],
-  imports: [MongooseModule.forRoot(connect()), OwnerModule, SpendModule, AuthModule],
-  providers: [AppService, OwnerService, SpendService, AuthService],
+  imports: [
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get<string>('MONGODB_URI'),
+      }),
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+    }),
+    OwnerModule,
+    SpendModule,
+    AuthModule,
+  ],
+  providers: [AppService, OwnerService, SpendService, AuthService, JwtService],
 })
 export class AppModule {}

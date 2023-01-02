@@ -5,7 +5,10 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { OwnerService } from './owner.service';
 import { AuthService } from '../auth/auth.service';
 import { CreateOwnerDTO } from './dto/createOwner.dto';
@@ -19,11 +22,6 @@ export class OwnerController {
     private authService: AuthService,
   ) {}
 
-  @Get()
-  async findAll(): Promise<Owner[]> {
-    return await this.ownerService.findAll();
-  }
-
   @Post()
   async create(@Body() body: CreateOwnerDTO): Promise<any> {
     const newOwner = await this.ownerService.createOwner(body);
@@ -36,8 +34,19 @@ export class OwnerController {
     );
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Body() body: LoginOwnerDTO): Promise<any> {
-    return await this.authService.validateUser(body.email, body.password);
+    const loginOwner = await this.authService.validateUser(
+      body.email,
+      body.password,
+    );
+    return this.authService.ownerToken(loginOwner.email);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/protected')
+  async findAll(): Promise<Owner[]> {
+    return await this.ownerService.findAll();
   }
 }

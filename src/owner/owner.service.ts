@@ -21,6 +21,7 @@ export class OwnerService {
     try {
       const hash = await argon2.hash(createdOwner.password);
       createdOwner.password = hash;
+      createdOwner.authToken = '';
       createdOwner.save();
       return newOwner;
     } catch (err) {
@@ -30,5 +31,19 @@ export class OwnerService {
 
   async findOne(loginEmail: LoginOwnerDTO['email']): Promise<Owner> {
     return await this.ownerModel.findOne({ email: loginEmail });
+  }
+
+  async getToken(
+    email: LoginOwnerDTO['email'],
+    payload: string,
+  ): Promise<Owner> {
+    try {
+      const owner = await this.ownerModel.findOne({ email: email });
+      owner.authToken = payload;
+      owner.save();
+      return owner;
+    } catch (err) {
+      throw err;
+    }
   }
 }
