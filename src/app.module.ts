@@ -10,6 +10,8 @@ import { SpendModule } from './spend/spend.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AccountService } from './account/account.service';
+import { AccountModule } from './account/account.module';
 import config from './db/config';
 
 @Module({
@@ -29,7 +31,8 @@ import config from './db/config';
     OwnerModule,
     SpendModule,
     AuthModule,
+    AccountModule,
   ],
-  providers: [AppService, OwnerService, SpendService, AuthService, JwtService],
+  providers: [AppService, OwnerService, SpendService, AuthService, JwtService, AccountService],
 })
 export class AppModule {}

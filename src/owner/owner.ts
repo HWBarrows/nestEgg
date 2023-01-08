@@ -15,9 +15,6 @@ export class Owner {
   email: string;
 
   @Prop({ required: true })
-  currency: string;
-
-  @Prop({ required: true })
   password: string;
 
   @Prop({ required: true })
