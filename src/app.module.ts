@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AccountService } from './account/account.service';
 import { AccountModule } from './account/account.module';
+import { ActivityService } from './activity/activity.service';
 import config from './db/config';
 
 @Module({
@@ -33,6 +34,6 @@ import config from './db/config';
     AuthModule,
     AccountModule,
   ],
-  providers: [AppService, OwnerService, SpendService, AuthService, JwtService, AccountService],
+  providers: [AppService, OwnerService, SpendService, AuthService, JwtService, AccountService, ActivityService],
 })
 export class AppModule {}

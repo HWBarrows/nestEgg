@@ -28,10 +28,7 @@ export class OwnerController {
     if (newOwner) {
       return HttpStatus.CREATED;
     }
-    throw new HttpException(
-      'Owner not created, please try again',
-      HttpStatus.BAD_REQUEST,
-    );
+    return { message: 'Owner not created' };
   }
 
   @UseGuards(LocalAuthGuard)

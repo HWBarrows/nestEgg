@@ -12,10 +12,6 @@ export class OwnerService {
     @InjectModel(Owner.name) private ownerModel: Model<OwnerDocument>,
   ) {}
 
-  async findAll(): Promise<Owner[]> {
-    return this.ownerModel.find().exec();
-  }
-
   async createOwner(newOwner: CreateOwnerDTO): Promise<Owner> {
     const createdOwner = new this.ownerModel(newOwner);
     try {
@@ -30,6 +26,10 @@ export class OwnerService {
 
   async findOne(loginEmail: LoginOwnerDTO['email']): Promise<Owner> {
     return await this.ownerModel.findOne({ email: loginEmail });
+  }
+
+  async findAll(): Promise<Owner[]> {
+    return this.ownerModel.find().exec();
   }
 
   async getToken(

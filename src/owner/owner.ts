@@ -22,6 +22,9 @@ export class Owner {
 
   @Prop({ default: '' })
   authToken: string;
+
+  @Prop({ default: [''] })
+  accounts: [string];
 }
 
 export const OwnerSchema = SchemaFactory.createForClass(Owner);

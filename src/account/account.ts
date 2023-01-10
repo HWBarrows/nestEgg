@@ -13,7 +13,7 @@ export class Account {
   @Prop([{ type: mongoose.SchemaTypes.ObjectId, ref: 'Activity' }])
   activities: Activity[];
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: 0 })
   balance: number;
 
   @Prop({ required: true })
