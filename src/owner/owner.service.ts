@@ -22,8 +22,7 @@ export class OwnerService {
       const hash = await argon2.hash(createdOwner.password);
       createdOwner.password = hash;
       createdOwner.authToken = '';
-      createdOwner.save();
-      return newOwner;
+      return createdOwner.save();
     } catch (err) {
       throw new InternalServerErrorException(err);
     }
@@ -40,8 +39,7 @@ export class OwnerService {
     try {
       const owner = await this.ownerModel.findOne({ email: email });
       owner.authToken = payload;
-      owner.save();
-      return owner;
+      return owner.save();
     } catch (err) {
       throw err;
     }

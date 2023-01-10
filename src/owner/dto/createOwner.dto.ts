@@ -7,9 +7,6 @@ export class CreateOwnerDTO {
   @IsString()
   lastName: string;
 
-  @IsString()
-  authToken: string;
-
   @IsEmail()
   email: string;
 

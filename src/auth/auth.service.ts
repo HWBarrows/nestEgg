@@ -32,12 +32,18 @@ export class AuthService {
     }
   }
 
-  async ownerToken(email: LoginOwnerDTO['email']) {
+  async createToken(email: LoginOwnerDTO['email']) {
     const payload = { user: email, organization: 'hallieb.tech ' };
     return {
       access_token: this.jwtService.sign(payload, {
         secret: this.configService.get<string>('auth.key'),
       }),
     };
+  }
+
+  async saveToken(email: LoginOwnerDTO['email']) {
+    const token = (await this.createToken(email)).access_token;
+    const owner = this.ownerService.getToken(email, token);
+    return owner;
   }
 }

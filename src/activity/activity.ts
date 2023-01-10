@@ -4,17 +4,24 @@ import { HydratedDocument } from 'mongoose';
 export type ActivityDocument = HydratedDocument<Activity>;
 
 enum ActivityType {
-  Transfer,
   Added,
+  Subtracted,
+}
+
+enum Method {
   Card,
-  Withdrawl,
-  Debit,
+  Transfer,
+  Deposit,
+  Withdrawal,
 }
 
 @Schema({ timestamps: true })
 export class Activity {
   @Prop({ required: true })
   activityType: ActivityType;
+
+  @Prop({ required: true })
+  method: Method;
 
   @Prop()
   from: string;

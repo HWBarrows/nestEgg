@@ -41,7 +41,8 @@ export class OwnerController {
       body.email,
       body.password,
     );
-    return this.authService.ownerToken(loginOwner.email);
+    // user will receive a new JWT every time they successfully log in
+    return this.authService.saveToken(loginOwner.email);
   }
 
   @UseGuards(JwtAuthGuard)

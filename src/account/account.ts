@@ -19,6 +19,9 @@ export class Account {
   @Prop({ required: true })
   currency: string;
 
+  @Prop({ required: true })
+  isActive: boolean;
+
   @Prop({ unique: true })
   cardNumber: string;
 }

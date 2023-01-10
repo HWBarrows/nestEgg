@@ -20,7 +20,7 @@ export class Owner {
   @Prop({ required: true })
   phoneNumber: string;
 
-  @Prop({ required: true })
+  @Prop({ default: '' })
   authToken: string;
 }
 
