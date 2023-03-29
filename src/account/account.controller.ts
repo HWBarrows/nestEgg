@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  Param,
   HttpException,
   HttpStatus,
   UseGuards,
@@ -26,19 +27,14 @@ export class AccountController {
       return newAccount;
     }
     throw new HttpException('message', HttpStatus.BAD_REQUEST);
-    // throw new HttpException('Account not created, please try again', 400, {
-    //   cause: new Error('user error'),
-    // });
   }
 
-  //   @UseGuards(LocalAuthGuard)
-  //   @Post('/login')
-  //   async login(@Body() body: LoginOwnerDTO): Promise<any> {
-  //     const loginOwner = await this.authService.validateUser(
-  //       body.email,
-  //       body.password,
-  //     );
-  //     // user will receive a new JWT every time they successfully log in
-  //     return this.authService.saveToken(loginOwner.email);
-  //   }
+  @Get(':id')
+  async getAccount(@Param('id') id: string): Promise<any> {
+    const foundAccount = await this.accountService.getAccount(id);
+    if (foundAccount) {
+      return foundAccount;
+    }
+    throw new HttpException('message', HttpStatus.BAD_REQUEST);
+  }
 }

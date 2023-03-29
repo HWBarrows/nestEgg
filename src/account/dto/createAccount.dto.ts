@@ -4,10 +4,12 @@ import {
   IsNumber,
   IsBoolean,
   IsMongoId,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateAccountDTO {
   @IsMongoId({ message: 'Please provide a valid id' })
+  @IsOptional()
   owner: string;
 
   @IsArray({ message: 'Please provide a list of activities' })

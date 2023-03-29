@@ -30,4 +30,21 @@ export class AccountService {
     });
     return account;
   }
+
+  async updateAccount(id: string, body: any): Promise<Account> {
+    try {
+      const updatedAccount = await this.accountModel.findByIdAndUpdate(
+        id,
+        body,
+        {
+          timestamps: true,
+          new: true,
+        },
+      );
+      return updatedAccount;
+    } catch (err) {
+      throw new InternalServerErrorException((err) => err);
+    }
+  }
+  //Model.findByIdAndUpdate(id, { name: 'jason bourne' }, timestamps: true)
 }

@@ -17,7 +17,7 @@ export class AuthService {
     email: LoginOwnerDTO['email'],
     password: LoginOwnerDTO['password'],
   ) {
-    const validUser = await this.ownerService.findOne(email);
+    const validUser = await this.ownerService.findOneByEmail(email);
     try {
       if (!validUser)
         throw new UnauthorizedException({ message: 'Invalid Credentials' });

@@ -1,22 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type ActivityDocument = HydratedDocument<Activity>;
+export type TransactionDocument = HydratedDocument<Transaction>;
 
-// export enum ActivityType {
-//   Added,
-//   Subtracted,
-// }
-
-// export enum Method {
-//   Card,
-//   Transfer,
-//   Deposit,
-//   Withdrawal,
-// }
-
-@Schema({ timestamps: true })
-export class Activity {
+@Schema()
+export class Transaction {
   @Prop({ required: true })
   activityType: string;
 
@@ -36,4 +24,4 @@ export class Activity {
   currency: string;
 }
 
-export const ActivitySchema = SchemaFactory.createForClass(Activity);
+export const TransactionSchema = SchemaFactory.createForClass(Transaction);

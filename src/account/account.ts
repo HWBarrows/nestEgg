@@ -11,7 +11,7 @@ export class Account {
   owner: Owner;
 
   @Prop([{ type: mongoose.SchemaTypes.ObjectId, ref: 'Activity' }])
-  activities: Activity[];
+  activity: Activity[];
 
   @Prop({ required: true, default: 0 })
   balance: number;

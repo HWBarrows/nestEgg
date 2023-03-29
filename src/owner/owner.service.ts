@@ -24,10 +24,13 @@ export class OwnerService {
     }
   }
 
-  async findOne(loginEmail: LoginOwnerDTO['email']): Promise<Owner> {
+  async findOneByEmail(loginEmail: LoginOwnerDTO['email']): Promise<Owner> {
     return await this.ownerModel.findOne({ email: loginEmail });
   }
 
+  async findOneById(id: string): Promise<Owner> {
+    return await this.ownerModel.findById(id);
+  }
   async findAll(): Promise<Owner[]> {
     return this.ownerModel.find().exec();
   }
@@ -42,6 +45,18 @@ export class OwnerService {
       return owner.save();
     } catch (err) {
       throw err;
+    }
+  }
+
+  async updateOwner(id: string, body: any): Promise<Owner> {
+    try {
+      const updatedOwner = await this.ownerModel.findByIdAndUpdate(id, body, {
+        timestamps: true,
+        new: true,
+      });
+      return updatedOwner;
+    } catch (err) {
+      throw new InternalServerErrorException((err) => err);
     }
   }
 }
