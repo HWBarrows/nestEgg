@@ -14,7 +14,6 @@ import { AccountService } from './account/account.service';
 import { AccountModule } from './account/account.module';
 import { ActivityService } from './activity/activity.service';
 import { ActivityModule } from './activity/activity.module';
-import { TransactionModule } from './transaction/transaction.module';
 import config from './db/config';
 
 @Module({
@@ -36,8 +35,15 @@ import config from './db/config';
     AuthModule,
     AccountModule,
     ActivityModule,
-    TransactionModule,
   ],
-  providers: [AppService, OwnerService, SpendService, AuthService, JwtService, AccountService, ActivityService],
+  providers: [
+    AppService,
+    OwnerService,
+    SpendService,
+    AuthService,
+    JwtService,
+    AccountService,
+    ActivityService,
+  ],
 })
 export class AppModule {}
